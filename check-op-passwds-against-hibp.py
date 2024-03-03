@@ -25,7 +25,7 @@ def main(args) -> None:
     passwords = op_passwords(args.verbosity)
 
     # insert faulty password to check if it is working
-    if args.insert_faulty:
+    if args.add_faulty:
         passwords.insert(0, "Test123")
 
     total_password_count = len(passwords)
