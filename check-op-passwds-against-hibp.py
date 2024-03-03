@@ -41,7 +41,15 @@ def main(args) -> None:
             continue
 
         # query Have I Been Pwned
-        pwned = Popen([args.pwned_executable, "pw", password], stdout=PIPE, stderr=PIPE)
+        pwned = Popen(
+            [
+                args.pwned_executable if args.pwned_executable else "pwned",
+                "pw",
+                password,
+            ],
+            stdout=PIPE,
+            stderr=PIPE,
+        )
         out, err = pwned.communicate()
 
         if pwned.returncode != 0 or b"Oh no" in err:
@@ -72,7 +80,6 @@ if __name__ == "__main__":
     parser = ArgumentParser()
     parser.add_argument(
         "--pwned-executable",
-        required=True,
         help="Path to pwned executable",
     )
     parser.add_argument(
